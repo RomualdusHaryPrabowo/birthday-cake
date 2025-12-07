@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joy day!</title>
+    <style>
+        /* --- 1. SETUP & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap');
+
+        :root {
+            --bg-color: #FFF0F5; /* Lavender Blush (Background) */
+            --choco-dark: #5D4037;
+            --choco-light: #8D6E63;
+            --pink-main: #FFB7B2;
+            --pink-dark: #E57373;
+            --cream: #FFECB3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--choco-dark);
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            
+            /* Tetap menggunakan scale 1.3 sesuai permintaan sebelumnya */
+            transform: scale(1.3); 
+            transform-origin: center;
+        }
+
+        /* --- 2. DEKORASI SISI --- */
+        .decoration {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .left-side { left: 5%; top: 20%; animation-delay: 0s; }
+        .right-side { right: 5%; bottom: 20%; animation-delay: 1.5s; }
+        .sparkle-1 { top: 10%; right: 10%; font-size: 1.5rem; animation-duration: 4s; }
+        .sparkle-2 { bottom: 10%; left: 10%; font-size: 1.5rem; animation-duration: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* --- 3. HEADER TEXT --- */
+        .header-container {
+            text-align: center;
+            margin-bottom: 40px; /* Dikurangi sedikit agar muat tombol */
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: var(--choco-dark);
+            opacity: 0;
+            animation: fadeInDown 2s ease forwards;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: var(--choco-light);
+            opacity: 0;
+            animation: fadeInDown 2s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 4. THE CAKE (NON-CLICKABLE NOW) --- */
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            /* Cursor pointer dihapus karena tidak diklik lagi */
+        }
+
+        /* Plate */
+        .plate {
+            width: 280px;
+            height: 15px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: absolute;
+            bottom: -15px;
+            z-index: 1;
+        }
+
+        /* Layers */
+        .layer {
+            width: 200px;
+            height: 50px;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-200px);
+        }
+
+        .layer-bottom {
+            background-color: var(--choco-dark);
+            width: 220px;
+            z-index: 2;
+            animation: stackDrop 0.8s cubic-bezier(0.25, 1, 0.5, 1) 1s forwards;
+        }
+        
+        .layer-middle {
+            background-color: var(--pink-main);
+            width: 190px;
+            z-index: 3;
+            animation: stackDrop 0.8s cubic-bezier(0.25, 1, 0.5, 1) 1.5s forwards;
+            background-image: radial-gradient(circle at 10px 0, var(--pink-dark) 5px, transparent 6px);
+            background-size: 20px 10px;
+            background-repeat: repeat-x;
+            background-position: bottom;
+        }
+
+        .layer-top {
+            background-color: var(--choco-light);
+            width: 160px;
+            z-index: 4;
+            animation: stackDrop 0.8s cubic-bezier(0.25, 1, 0.5, 1) 2s forwards;
+        }
+
+        /* Candle */
+        .candle {
+            width: 12px;
+            height: 35px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, var(--pink-dark) 5px, var(--pink-dark) 10px);
+            position: absolute;
+            top: 50px;
+            z-index: 5;
+            opacity: 0;
+            animation: appear 1s ease 2.8s forwards;
+        }
+
+        .flame {
+            width: 12px;
+            height: 18px;
+            background: orange;
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -18px;
+            left: 0;
+            box-shadow: 0 0 10px yellow;
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        @keyframes stackDrop {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes appear {
+            to { opacity: 1; }
+        }
+        @keyframes flicker {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* --- 5. BUTTON STYLE (NEW) --- */
+        .btn-celebrate {
+            margin-top: 40px;
+            padding: 12px 24px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            background-color: var(--pink-dark);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            /* Muncul setelah animasi lilin selesai (sekitar 3s) */
+            animation: fadeInDown 1s ease 3.2s forwards;
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 100;
+        }
+
+        .btn-celebrate:hover {
+            background-color: var(--choco-light);
+            transform: scale(1.05);
+        }
+
+        .btn-celebrate:active {
+            transform: scale(0.95);
+        }
+
+        /* --- 6. CONFETTI --- */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--pink-main);
+            animation: fall 3s linear forwards;
+            z-index: 99;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="decoration left-side">✨</div>
+    <div class="decoration right-side">🍫</div>
+    <div class="decoration sparkle-1">🌸</div>
+    <div class="decoration sparkle-2">🍩</div>
+
+    <div class="header-container">
+        <h1 id="main-title">Happy Birthday, Joy!</h1>
+        <p id="sub-title">Mazmur 20 : 4.</p>
+    </div>
+
+    <div class="cake-container" id="cake">
+        <div class="plate"></div>
+        <div class="layer layer-bottom"></div>
+        <div class="layer layer-middle"></div>
+        <div class="layer layer-top"></div>
+        <div class="candle">
+            <div class="flame" id="flame"></div>
+        </div>
+    </div>
+
+    <button class="btn-celebrate" onclick="celebrate()">Click me!</button>
+
+    <script>
+        // --- LOGIC JAVASCRIPT ---
+
+        const mainTitle = document.getElementById('main-title');
+        const subTitle = document.getElementById('sub-title');
+        const flame = document.getElementById('flame');
+        const body = document.body;
+
+        const messages = [
+          { t: "Gokil Gak?!", s: "Gua tau ultah lu kan" },
+          { t: "Hooray!", s: "HBD JOY!!. Congrats juga kelar kader wkwkkwkkw" },
+          { t: "Ups!", s: "Tambah umur, tambah beban nanti gak si? Hahaaa" },
+          { t: "Wishes", s: "Semoga apa yang lu mau tercapai… kalo lu nggak ketiduran kayak biasanya." },
+          { t: "Party!", s: "GASS PANTAI AYO, klo waktunya sesuai sie wwkwkwkwk" },
+          { t: "Udah!", s: "Dahlah gitu aja" }
+
+        ];
+
+        // Fungsi dipanggil saat TOMBOL diklik
+        function celebrate() {
+            // 1. Create Confetti
+            createConfetti();
+
+            // 2. Ganti Text secara random
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            mainTitle.innerText = randomMsg.t;
+            subTitle.innerText = randomMsg.s;
+
+            // 3. Efek Lilin mati sebentar
+            flame.style.opacity = "0";
+            setTimeout(() => {
+                flame.style.opacity = "1";
+            }, 1000);
+        }
+
+        function createConfetti() {
+            const colors = ['#5D4037', '#FFB7B2', '#E57373', '#FFD54F', '#FFFFFF'];
+            
+            for (let i = 0; i < 30; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = -10 + 'px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                body.appendChild(conf);
+
+                setTimeout(() => {
+                    conf.remove();
+                }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>
