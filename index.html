@@ -36,9 +36,9 @@
             overflow: hidden;
             position: relative;
             
-            /* Tetap menggunakan scale 1.3 sesuai permintaan sebelumnya */
-            transform: scale(1.3); 
-            transform-origin: center;
+            /* --- RESPONSIVE: HAPUS SKALA TETAP --- */
+            /* transform: scale(1.3);  DIHAPUS agar tidak membesar di semua layar */
+            /* transform-origin: center; */
         }
 
         /* --- 2. DEKORASI SISI --- */
@@ -62,7 +62,7 @@
         /* --- 3. HEADER TEXT --- */
         .header-container {
             text-align: center;
-            margin-bottom: 40px; /* Dikurangi sedikit agar muat tombol */
+            margin-bottom: 40px; 
             z-index: 10;
         }
 
@@ -95,7 +95,6 @@
             display: flex;
             flex-direction: column-reverse;
             align-items: center;
-            /* Cursor pointer dihapus karena tidak diklik lagi */
         }
 
         /* Plate */
@@ -194,7 +193,6 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             opacity: 0;
-            /* Muncul setelah animasi lilin selesai (sekitar 3s) */
             animation: fadeInDown 1s ease 3.2s forwards;
             transition: transform 0.2s, background-color 0.2s;
             z-index: 100;
@@ -222,6 +220,43 @@
         @keyframes fall {
             0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- RESPONSIVE --- */
+        /* Untuk Tablet dan Ponsel */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem; /* Mengecilkan font judul */
+            }
+            p {
+                font-size: 1rem; /* Mengecilkan font sub-judul */
+            }
+            .header-container {
+                margin-bottom: 20px; /* Mengurangi jarak bawah */
+            }
+            .cake-container {
+                /* Mengecilkan seluruh elemen kue secara proporsional */
+                transform: scale(0.8); 
+            }
+            .btn-celebrate {
+                margin-top: 20px; /* Mengurangi jarak atas tombol */
+            }
+        }
+
+        /* Untuk Ponsel Kecil */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem; /* Font judul lebih kecil lagi */
+            }
+            .cake-container {
+                transform: scale(0.65); /* Kue lebih kecil lagi */
+            }
+            .decoration {
+                font-size: 1.5rem; /* Mengecilkan dekorasi */
+            }
+            .sparkle-1, .sparkle-2 {
+                font-size: 1.2rem;
+            }
         }
 
     </style>
